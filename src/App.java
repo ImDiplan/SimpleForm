@@ -1,7 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
 
-public class App {
+public class App implements ActionListener {
 
 	// Main application
 	public static void main(String[] args) {
@@ -9,9 +10,9 @@ public class App {
 	}
 
 	// Elementos del formulario
-	JFrame frame;
-	JPanel panel1, panel2;
-	JLabel nom, ape, mail, cel, dir, gen, img;
+	JFrame frame, frame2;
+	JPanel panel1, panel2, panel3,panel4;
+	JLabel nom, ape, mail, cel, dir, gen, img, nombre, apellido, email, celular, direccion;
 	JTextField tfNom, tfApe, tfMail, tfCel, tfDir;
 	JButton btnImg, btnCon, btnRec, btnIr, btnSave, btnDel, btnMod, btnLim, btnSalir;
 	JComboBox<String> select;
@@ -28,7 +29,17 @@ public class App {
 		frame.setVisible(true);
 		frame.add(panel1);
 	}
-
+	void frame2() {
+		frame = new JFrame();
+		frame.setLayout(null);
+		frame.setTitle("Formulario de contacto");
+		frame.setSize(250, 250);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLocationRelativeTo(frame);
+		frame.setVisible(true);
+		frame.add(panel3);
+		
+	}
 	void titulos() {
 		// Etiquetas
 		nom = new JLabel("Nombre del contacto");
@@ -53,6 +64,23 @@ public class App {
 		img.setBounds(315, 40, 200, 102);
 		img.setHorizontalAlignment(SwingConstants.CENTER);
 		img.setBorder(BorderFactory.createLineBorder(Color.gray));
+
+		nombre = new JLabel("");
+		nombre.setBounds(20, 25, 160, 40);
+		nombre.setFont(new Font("arial", Font.BOLD, 12));
+		apellido = new JLabel("");
+		apellido.setBounds(20, 45, 160, 40);
+		apellido.setFont(new Font("arial", Font.BOLD, 12));
+		email = new JLabel("");
+		email.setBounds(20, 65, 180, 40);
+		email.setFont(new Font("arial", Font.BOLD, 12));
+		celular = new JLabel("");
+		celular.setBounds(20, 85, 220, 40);
+		celular.setFont(new Font("arial", Font.BOLD, 12));
+		direccion = new JLabel("");
+		direccion.setBounds(20, 105, 220, 40);
+		direccion.setFont(new Font("arial", Font.BOLD, 12));
+
 	}
 
 	void campos() {
@@ -98,6 +126,10 @@ public class App {
 		select.setBackground(Color.white);
 	}
 
+	void actions() {
+		btnSave.addActionListener(this);
+	}
+
 	void tabla() {
 		// tabla
 		String[] columnas = new String[] { "Nombres", "Apellidos", "Email", "Telefono", "Direccion", "Sexo" };
@@ -111,13 +143,24 @@ public class App {
 	void paneles() {
 		panel1 = new JPanel();
 		panel2 = new JPanel();
+		panel3 = new JPanel();
+		panel4 = new JPanel();
 		panel1.setLayout(null);
 		panel2.setLayout(null);
-
+		panel3.setLayout(null);
+		panel4.setLayout(null);
 		panel1.setBorder(
-		BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), "Datos Personales", 1, 2));
+				BorderFactory.createTitledBorder(BorderFactory.createLineBorder(Color.gray), "Datos Personales", 1, 2));
 		panel1.setBounds(5, 5, 523, 500);
 		panel2.setBounds(20, 260, 484, 170);
+		panel3.setBounds(5, 5, 223, 200);
+		panel4.setBounds(20, 260, 184, 70);
+		panel3.add(panel4);
+		panel3.add(nombre);
+		panel3.add(apellido);
+		panel3.add(email);
+		panel3.add(celular);
+		panel3.add(direccion);
 		panel1.add(panel2);
 		panel1.add(nom);
 		panel1.add(ape);
@@ -151,5 +194,18 @@ public class App {
 		tabla();
 		paneles();
 		frame();
+		actions();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("Is Working!!");
+		nombre.setText("El nombre es: "+tfNom.getText());
+		apellido.setText("El apellido es: "+tfApe.getText());
+		email.setText("El email es: "+tfMail.getText());
+		celular.setText("El celular es: "+tfCel.getText());
+		direccion.setText("La direccion es: "+tfDir.getText());
+		frame2();
+
 	}
 }
